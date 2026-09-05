@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Page
+ * FILE         : register-admin.html
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Halaman registrasi user ADMIN. Hanya SUPER_ADMIN yang boleh
+ * mengakses (dijaga di frontend & WAJIB ditolak backend jika bukan
+ * SUPER_ADMIN - Blueprint Aturan 5).
+ ******************************************************************/
+-->
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registrasi Admin — Marketing Fee System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebarSlot"></aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Registrasi Admin</h1>
+                    <div class="page-subtitle">Membuat akun baru dengan role ADMIN (verifikasi rombongan).</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <form id="registerForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="registerName">Nama Lengkap</label>
+                            <input class="form-input" type="text" id="registerName" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="registerUsername">Username</label>
+                            <input class="form-input" type="text" id="registerUsername" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="registerPassword">Password Awal</label>
+                            <input class="form-input" type="text" id="registerPassword" required />
+                        </div>
+                        <div class="form-group hidden" id="teamFieldGroup">
+                            <label class="form-label" for="registerTeamId">Team</label>
+                            <select class="form-select" id="registerTeamId"></select>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="registerSubmitButton">Buat Akun</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Daftar Admin</h3>
+                <div id="existingUsersSlot"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="config/public-config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/register.js"></script>
+    <script>
+        registerInit("ADMIN");
+    </script>
+
+</body>
+</html>

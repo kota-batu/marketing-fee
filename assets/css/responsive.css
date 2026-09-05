@@ -1,0 +1,123 @@
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Styling
+ * FILE         : responsive.css
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Penyesuaian layout untuk tablet dan mobile. Sidebar berubah
+ * menjadi bar horizontal di layar kecil.
+ ******************************************************************/
+
+/******************************************************************
+ * VERSION HISTORY
+ * ----------------------------------------------------------------
+ *
+ * v1.0.0
+ * - Initial Release.
+ *
+ ******************************************************************/
+
+/******************************************************************
+ * DEPENDENCIES
+ * ----------------------------------------------------------------
+ *
+ * Required
+ * - main.css (harus dimuat sebelum file ini)
+ *
+ * Used By
+ * - Seluruh halaman HTML
+ *
+ ******************************************************************/
+
+/******************************************************************
+ * SECTION BLOCK : TABLET (<= 1024px)
+ ******************************************************************/
+
+@media (max-width: 1024px) {
+    .main-content {
+        padding: 24px;
+    }
+
+    .stat-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    }
+}
+
+/******************************************************************
+ * SECTION BLOCK : MOBILE (<= 768px)
+ ******************************************************************/
+
+@media (max-width: 768px) {
+    .app-shell {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+        padding: 12px 16px;
+        overflow-x: auto;
+    }
+
+    .sidebar-brand, .sidebar-role, .sidebar-footer {
+        display: none;
+    }
+
+    .sidebar-nav {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .sidebar-nav a {
+        white-space: nowrap;
+        font-size: 13px;
+        padding: 8px 10px;
+    }
+
+    .main-content {
+        padding: 20px 16px;
+        max-width: 100%;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .auth-card {
+        margin: 0 16px;
+        padding: 28px 22px;
+    }
+
+    .toast-container {
+        left: 16px;
+        right: 16px;
+    }
+
+    .toast {
+        min-width: 0;
+        width: 100%;
+    }
+}
+
+/******************************************************************
+ * SECTION BLOCK : SMALL MOBILE (<= 420px)
+ ******************************************************************/
+
+@media (max-width: 420px) {
+    h1 { font-size: 22px; }
+
+    .stat-value { font-size: 22px; }
+
+    .btn { padding: 9px 14px; font-size: 13px; }
+}

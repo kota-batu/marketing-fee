@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Page
+ * FILE         : login.html
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Halaman login. Satu form untuk seluruh role (SUPER_ADMIN, ADMIN,
+ * MARKETING) - backend yang menentukan role sebenarnya dari sesi.
+ ******************************************************************/
+-->
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masuk — Marketing Fee System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+    <div class="auth-page">
+        <div class="auth-card">
+            <div class="auth-brand">Marketing Fee</div>
+            <div class="auth-tagline">Masuk untuk melanjutkan</div>
+
+            <div id="loginErrorBox" class="alert alert-error hidden"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label class="form-label" for="loginUsername">Username</label>
+                    <input class="form-input" type="text" id="loginUsername" autocomplete="username" required />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="loginPassword">Password</label>
+                    <input class="form-input" type="password" id="loginPassword" autocomplete="current-password" required />
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="loginSubmitButton" style="width: 100%;">Masuk</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="config/public-config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", authHandleLoginSubmit);
+
+        if (apiGetStoredSession()) {
+            window.location.href = "dashboard.html";
+        }
+    </script>
+
+</body>
+</html>

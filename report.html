@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<!--
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Page
+ * FILE         : report.html
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Halaman laporan untuk seluruh role. MARKETING otomatis hanya
+ * melihat laporan individual miliknya sendiri.
+ ******************************************************************/
+-->
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan — Marketing Fee System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebarSlot"></aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Laporan</h1>
+                    <div class="page-subtitle">Rekap rombongan, belanja, dan fee marketing.</div>
+                </div>
+                <button class="btn btn-accent" id="downloadPdfButton">Unduh PDF</button>
+            </div>
+
+            <div class="card">
+                <form id="reportFilterForm" class="form-row">
+                    <div class="form-group" id="filterTypeGroup">
+                        <label class="form-label" for="filterType">Jenis Laporan</label>
+                        <select class="form-select" id="filterType">
+                            <option value="ALL">Semua Marketing</option>
+                            <option value="TEAM">Per Team</option>
+                            <option value="INDIVIDUAL">Per Marketing</option>
+                            <option value="TANPA_TEAM">Tanpa Team</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="filterMonth">Bulan</label>
+                        <select class="form-select" id="filterMonth">
+                            <option value="1">Januari</option><option value="2">Februari</option>
+                            <option value="3">Maret</option><option value="4">April</option>
+                            <option value="5">Mei</option><option value="6">Juni</option>
+                            <option value="7">Juli</option><option value="8">Agustus</option>
+                            <option value="9">September</option><option value="10">Oktober</option>
+                            <option value="11">November</option><option value="12">Desember</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="filterYear">Tahun</label>
+                        <input class="form-input" type="number" id="filterYear" />
+                    </div>
+
+                    <div class="form-group hidden" id="filterTeamGroup">
+                        <label class="form-label" for="filterTeam">Team</label>
+                        <select class="form-select" id="filterTeam"></select>
+                    </div>
+
+                    <div class="form-group hidden" id="filterMarketingGroup">
+                        <label class="form-label" for="filterMarketing">Marketing</label>
+                        <select class="form-select" id="filterMarketing"></select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="filterStatus">Status</label>
+                        <select class="form-select" id="filterStatus">
+                            <option value="">Semua Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="ARRIVED">Arrived</option>
+                            <option value="NOT_ARRIVED">Not Arrived</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" style="align-self: end;">
+                        <button type="submit" class="btn btn-primary">Tampilkan</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card" id="reportResultSlot"></div>
+        </main>
+    </div>
+
+    <script src="config/public-config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/report.js"></script>
+    <script>
+        reportInit();
+    </script>
+
+</body>
+</html>

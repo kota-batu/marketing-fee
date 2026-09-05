@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<!--
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Page
+ * FILE         : marketing.html
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Halaman khusus role MARKETING: daftarkan rombongan baru, lihat
+ * rombongan yang sudah didaftarkan sendiri.
+ ******************************************************************/
+-->
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar Rombongan — Marketing Fee System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebarSlot"></aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Daftar Rombongan</h1>
+                    <div class="page-subtitle">1 form = 1 rombongan/group. Jangan gabungkan beberapa rombongan dalam satu baris.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Rombongan Baru</h3>
+                <form id="createVisitForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="visitDate">Tanggal</label>
+                            <input class="form-input" type="date" id="visitDate" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="groupName">Rombongan / Asal</label>
+                            <input class="form-input" type="text" id="groupName" placeholder="contoh: Batu" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="travelName">Nama Travel</label>
+                            <input class="form-input" type="text" id="travelName" placeholder="contoh: ABC Travel" required />
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="vehicleCount">Jumlah Bus</label>
+                            <input class="form-input" type="number" min="1" id="vehicleCount" placeholder="contoh: 2" required />
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary" id="createVisitSubmitButton">Daftarkan Rombongan</button>
+                </form>
+            </div>
+
+            <div class="card">
+                <h3 class="card-title">Rombongan Saya (Bulan Ini)</h3>
+                <div id="myVisitsTableSlot"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="config/public-config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/marketing.js"></script>
+    <script>
+        marketingInit();
+    </script>
+
+</body>
+</html>

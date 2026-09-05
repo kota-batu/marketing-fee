@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Page
+ * FILE         : dashboard.html
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Halaman dashboard untuk seluruh role. SUPER_ADMIN mendapat tab
+ * tambahan: Users, Teams, Fee Rules, Audit Log.
+ ******************************************************************/
+-->
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard — Marketing Fee System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebarSlot"></aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Dashboard</h1>
+                    <div class="page-subtitle">Ringkasan untuk role: <span id="dashboardUserRole"></span></div>
+                </div>
+            </div>
+
+            <div class="stat-grid" id="statGrid"></div>
+
+            <div id="superAdminTabs" class="hidden">
+                <div class="tabs">
+                    <button class="tab-item active" id="tabBtn_overview" onclick="dashboardSwitchTab('overview')">Overview</button>
+                    <button class="tab-item" id="tabBtn_users">Users</button>
+                    <button class="tab-item" id="tabBtn_teams">Teams</button>
+                    <button class="tab-item" id="tabBtn_fee">Fee Rules</button>
+                    <button class="tab-item" id="tabBtn_audit">Audit Log</button>
+                </div>
+
+                <div id="tabPanel_overview" class="card">
+                    <p class="page-subtitle">Gunakan menu di sidebar untuk Tracking dan Reports. Tab di atas untuk mengelola Users, Teams, Fee Rules, dan Audit Log.</p>
+                </div>
+
+                <div id="tabPanel_users" class="card hidden">
+                    <h3 class="card-title">Manajemen User</h3>
+                    <div id="usersTableSlot"></div>
+                </div>
+
+                <div id="tabPanel_teams" class="card hidden">
+                    <h3 class="card-title">Manajemen Team</h3>
+                    <form onsubmit="dashboardHandleCreateTeam(event)" class="form-row" style="margin-bottom: 20px;">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label" for="newTeamName">Nama Team Baru</label>
+                            <input class="form-input" type="text" id="newTeamName" placeholder="contoh: 3D" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom:0; align-self: end;">
+                            <button type="submit" class="btn btn-primary">Buat Team</button>
+                        </div>
+                    </form>
+                    <div id="teamsTableSlot"></div>
+                </div>
+
+                <div id="tabPanel_fee" class="card hidden">
+                    <h3 class="card-title">Aturan Fee Marketing</h3>
+                    <form onsubmit="dashboardHandleUpdateFee(event)" class="form-row" style="margin-bottom: 20px;">
+                        <div class="form-group" style="margin-bottom:0;">
+                            <label class="form-label" for="newFeeValue">Fee Baru (%)</label>
+                            <input class="form-input" type="number" step="0.1" min="0" id="newFeeValue" placeholder="contoh: 2" required />
+                        </div>
+                        <div class="form-group" style="margin-bottom:0; align-self: end;">
+                            <button type="submit" class="btn btn-accent">Perbarui Fee</button>
+                        </div>
+                    </form>
+                    <div id="feeTableSlot"></div>
+                </div>
+
+                <div id="tabPanel_audit" class="card hidden">
+                    <h3 class="card-title">Audit Log</h3>
+                    <div id="auditTableSlot"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="config/public-config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script>
+        dashboardInit();
+    </script>
+
+</body>
+</html>

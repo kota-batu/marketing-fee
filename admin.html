@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+/******************************************************************
+ * PROJECT      : Marketing Fee & Rombongan Tracking System
+ * MODULE       : Frontend Page
+ * FILE         : admin.html
+ * VERSION      : v1.0.0
+ * AUTHOR       : Jimmy Method Generator
+ * CREATED      : 2026-09-05
+ * LAST UPDATE  : 2026-09-05
+ *
+ * DESCRIPTION
+ * ----------------------------------------------------------------
+ * Halaman verifikasi kedatangan rombongan untuk role ADMIN dan
+ * SUPER_ADMIN. Menampilkan rombongan hari ini dan pending tracking
+ * (termasuk pending dari hari-hari sebelumnya).
+ ******************************************************************/
+-->
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tracking — Marketing Fee System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,500;0,600;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/responsive.css" />
+</head>
+<body>
+
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebarSlot"></aside>
+
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Tracking Rombongan</h1>
+                    <div class="page-subtitle">Verifikasi kedatangan rombongan dan catat total belanja aktual.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="tabs">
+                    <button class="tab-item active" id="tabBtnToday">Hari Ini</button>
+                    <button class="tab-item" id="tabBtnPending">Pending Tracking</button>
+                </div>
+                <div id="visitsTableSlot"></div>
+            </div>
+        </main>
+    </div>
+
+    <script src="config/public-config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/admin.js"></script>
+    <script>
+        adminInit();
+    </script>
+
+</body>
+</html>
