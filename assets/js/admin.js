@@ -2,7 +2,7 @@
  * PROJECT      : Marketing Fee & Rombongan Tracking System
  * MODULE       : Frontend Page Logic
  * FILE         : admin.js
- * VERSION      : v1.0.0
+ * VERSION      : v1.1.0
  * AUTHOR       : Jimmy Method Generator
  * CREATED      : 2026-09-05
  * LAST UPDATE  : 2026-09-05
@@ -11,8 +11,8 @@
  * ----------------------------------------------------------------
  * Logika admin.html: menampilkan rombongan hari ini & pending
  * tracking (termasuk pending lama), serta memproses verifikasi
- * DATANG (dengan input total belanja) atau TIDAK DATANG (dengan
- * konfirmasi eksplisit).
+ * DATANG (dengan input No Stiker Kunjungan + total belanja) atau
+ * TIDAK DATANG (dengan konfirmasi eksplisit).
  ******************************************************************/
 
 /******************************************************************
@@ -21,6 +21,10 @@
  *
  * v1.0.0
  * - Initial Release.
+ *
+ * v1.1.0
+ * - Menambahkan input No Stiker Kunjungan saat verifikasi DATANG.
+ * - Menampilkan kolom No Stiker pada tabel rombongan.
  *
  ******************************************************************/
 
@@ -92,31 +96,39 @@ function adminBuildVisitsTable(visits) {
             "<td>" + appEscapeHtml(v.travel_name) + "</td>" +
             "<td>" + v.vehicle_count + "</td>" +
             "<td>" + appRenderStatusBadge(v.status) + "</td>" +
+            "<td>" + (v.sticker_number ? appEscapeHtml(v.sticker_number) : "-") + "</td>" +
             "<td>" + appFormatRupiah(v.total_spend) + "</td>" +
             "<td>" + actionCell + "</td>" +
             "</tr>";
     }).join("");
 
     return '<div class="table-wrap"><table class="data-table"><thead><tr>' +
-        "<th>Tanggal</th><th>Rombongan</th><th>Travel</th><th>Bus</th><th>Status</th><th>Belanja</th><th>Aksi</th>" +
+        "<th>Tanggal</th><th>Rombongan</th><th>Travel</th><th>Bus</th><th>Status</th><th>No Stiker</th><th>Belanja</th><th>Aksi</th>" +
         "</tr></thead><tbody>" +
-        (rows || '<tr><td colspan="7" class="table-empty">Tidak ada data.</td></tr>') +
+        (rows || '<tr><td colspan="8" class="table-empty">Tidak ada data.</td></tr>') +
         "</tbody></table></div>";
 }
 
 /******************************************************************
  * Function : adminHandleMarkArrived()
- * Tujuan   : Meminta input total belanja lalu menandai rombongan
- *            sebagai ARRIVED.
+ * Tujuan   : Meminta input No Stiker Kunjungan dan total belanja,
+ *            lalu menandai rombongan sebagai ARRIVED.
  ******************************************************************/
 async function adminHandleMarkArrived(visitId) {
-    const totalSpendRaw = await appPromptModal("Total belanja aktual (Rp):", "number");
-    if (totalSpendRaw === null || totalSpendRaw === "") {
+    const result = await appMultiPromptModal("Verifikasi Rombongan Datang", [
+        { key: "sticker_number", label: "No Stiker Kunjungan", type: "text", required: true },
+        { key: "total_spend", label: "Total Belanja Aktual (Rp)", type: "number", required: true }
+    ]);
+    if (!result) {
         return;
     }
 
     try {
-        await apiCall("mark_arrived", { visit_id: visitId, total_spend: totalSpendRaw });
+        await apiCall("mark_arrived", {
+            visit_id: visitId,
+            sticker_number: result.sticker_number,
+            total_spend: result.total_spend
+        });
         appShowToast("Rombongan ditandai DATANG.", "success");
         await adminSwitchView(document.getElementById("tabBtnToday").classList.contains("active") ? "today" : "pending");
     } catch (error) {
