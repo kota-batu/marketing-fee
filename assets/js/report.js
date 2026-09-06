@@ -2,7 +2,7 @@
  * PROJECT      : Marketing Fee & Rombongan Tracking System
  * MODULE       : Frontend Page Logic
  * FILE         : report.js
- * VERSION      : v1.0.0
+ * VERSION      : v1.1.0
  * AUTHOR       : Jimmy Method Generator
  * CREATED      : 2026-09-05
  * LAST UPDATE  : 2026-09-05
@@ -22,6 +22,9 @@
  *
  * v1.0.0
  * - Initial Release.
+ *
+ * v1.1.0
+ * - Menambahkan kolom No Stiker pada laporan INDIVIDUAL.
  *
  ******************************************************************/
 
@@ -213,16 +216,16 @@ function reportRenderIndividualReport(data) {
     const rows = (data.visits || []).map(function (v) {
         return "<tr><td>" + appFormatDate(v.visit_date) + "</td><td>" + appEscapeHtml(v.group_name) + "</td><td>" +
             appEscapeHtml(v.travel_name) + "</td><td>" + v.vehicle_count + "</td><td>" + appRenderStatusBadge(v.status) +
-            "</td><td>" + appFormatRupiah(v.total_spend) + "</td><td>" + appFormatRupiah(v.fee_amount) + "</td><td>" +
+            "</td><td>" + (v.sticker_number ? appEscapeHtml(v.sticker_number) : "-") + "</td><td>" + appFormatRupiah(v.total_spend) + "</td><td>" + appFormatRupiah(v.fee_amount) + "</td><td>" +
             appEscapeHtml(v.team_name) + "</td></tr>";
     }).join("");
 
     return "<h3 class='card-title'>Marketing: " + appEscapeHtml(data.marketing_name || "") + "</h3>" +
         '<div class="table-wrap"><table class="data-table"><thead><tr>' +
-        "<th>Tanggal</th><th>Rombongan</th><th>Travel</th><th>Bus</th><th>Status</th><th>Belanja</th><th>Fee</th><th>Team</th>" +
+        "<th>Tanggal</th><th>Rombongan</th><th>Travel</th><th>Bus</th><th>Status</th><th>No Stiker</th><th>Belanja</th><th>Fee</th><th>Team</th>" +
         "</tr></thead><tbody>" +
-        (rows || '<tr><td colspan="8" class="table-empty">Tidak ada data.</td></tr>') +
-        "</tbody><tfoot><tr><td colspan='3'>TOTAL</td><td>" + data.total.bus + "</td><td></td><td>" +
+        (rows || '<tr><td colspan="9" class="table-empty">Tidak ada data.</td></tr>') +
+        "</tbody><tfoot><tr><td colspan='3'>TOTAL</td><td>" + data.total.bus + "</td><td></td><td></td><td>" +
         appFormatRupiah(data.total.belanja) + "</td><td>" + appFormatRupiah(data.total.fee) + "</td><td></td></tr></tfoot></table></div>";
 }
 
