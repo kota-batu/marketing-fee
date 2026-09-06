@@ -30,7 +30,7 @@
  ******************************************************************/
 
 const CONFIG = {
-    API_BASE_URL: "https://script.google.com/macros/s/AKfycbyw37o-Sm2nlqqqKpf2MSR4Z3FSijJ5pN4LROqHafVL41AICRCAnF-vZAAxsgP6hXVa/exec",
+    API_BASE_URL: "https://script.google.com/macros/s/AKfycbysazjovfFs915BNgSbZw3FG3mwSFNK4kpn91eM0yejmIsoi2Pzf1bhUPSzJA0Y_UiW/exec",
     APP_NAME: "Marketing Fee System",
     APP_VERSION: "1.0.0"
 };
