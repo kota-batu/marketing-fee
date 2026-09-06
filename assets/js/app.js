@@ -2,7 +2,7 @@
  * PROJECT      : Marketing Fee & Rombongan Tracking System
  * MODULE       : Frontend Core
  * FILE         : app.js
- * VERSION      : v1.0.0
+ * VERSION      : v1.1.0
  * AUTHOR       : Jimmy Method Generator
  * CREATED      : 2026-09-05
  * LAST UPDATE  : 2026-09-05
@@ -20,6 +20,11 @@
  *
  * v1.0.0
  * - Initial Release.
+ *
+ * v1.1.0
+ * - Menambahkan appMultiPromptModal() untuk input beberapa field
+ *   sekaligus (dipakai saat verifikasi DATANG: No Stiker + Total
+ *   Belanja).
  *
  ******************************************************************/
 
@@ -245,6 +250,73 @@ function appPromptModal(labelText, inputType) {
             const value = inputEl.value;
             overlay.remove();
             resolve(value);
+        };
+    });
+}
+
+/******************************************************************
+ * Function : appMultiPromptModal()
+ * Tujuan   : Menampilkan modal dengan beberapa input sekaligus
+ *            (mis. No Stiker + Total Belanja saat verifikasi
+ *            DATANG). Mengembalikan Promise<object|null> berisi
+ *            { key: value } sesuai definisi fields, atau null jika
+ *            dibatalkan.
+ *
+ *            fields = [{ key, label, type, required }]
+ ******************************************************************/
+function appMultiPromptModal(title, fields) {
+    return new Promise(function (resolve) {
+        const overlay = document.createElement("div");
+        overlay.className = "modal-overlay";
+
+        const fieldsHtml = fields.map(function (field) {
+            return '<div class="form-group">' +
+                '<label class="form-label">' + appEscapeHtml(field.label) + "</label>" +
+                '<input class="form-input" id="appMultiModal_' + field.key + '" type="' + (field.type || "text") + '" />' +
+                "</div>";
+        }).join("");
+
+        overlay.innerHTML =
+            '<div class="modal-box">' +
+            "<h3 class='card-title'>" + appEscapeHtml(title) + "</h3>" +
+            fieldsHtml +
+            '<div id="appMultiModalError" class="alert alert-error hidden"></div>' +
+            '<div class="modal-actions">' +
+            '<button class="btn btn-outline" id="appModalCancelBtn">Batal</button>' +
+            '<button class="btn btn-primary" id="appModalOkBtn">Konfirmasi</button>' +
+            "</div></div>";
+        document.body.appendChild(overlay);
+
+        const firstInput = overlay.querySelector("input");
+        if (firstInput) firstInput.focus();
+
+        overlay.querySelector("#appModalCancelBtn").onclick = function () {
+            overlay.remove();
+            resolve(null);
+        };
+
+        overlay.querySelector("#appModalOkBtn").onclick = function () {
+            const result = {};
+            let hasEmptyRequired = false;
+
+            fields.forEach(function (field) {
+                const inputEl = overlay.querySelector("#appMultiModal_" + field.key);
+                const value = inputEl.value.trim();
+                if (field.required !== false && !value) {
+                    hasEmptyRequired = true;
+                }
+                result[field.key] = value;
+            });
+
+            if (hasEmptyRequired) {
+                const errorBox = overlay.querySelector("#appMultiModalError");
+                errorBox.textContent = "Semua field wajib diisi.";
+                errorBox.classList.remove("hidden");
+                return;
+            }
+
+            overlay.remove();
+            resolve(result);
         };
     });
 }
