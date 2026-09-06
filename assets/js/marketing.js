@@ -2,7 +2,7 @@
  * PROJECT      : Marketing Fee & Rombongan Tracking System
  * MODULE       : Frontend Page Logic
  * FILE         : marketing.js
- * VERSION      : v1.0.0
+ * VERSION      : v1.1.0
  * AUTHOR       : Jimmy Method Generator
  * CREATED      : 2026-09-05
  * LAST UPDATE  : 2026-09-05
@@ -20,6 +20,10 @@
  *
  * v1.0.0
  * - Initial Release.
+ *
+ * v1.1.0
+ * - Menampilkan kolom No Stiker pada tabel Rombongan Saya (terisi
+ *   otomatis setelah Admin memverifikasi DATANG).
  *
  ******************************************************************/
 
@@ -106,6 +110,7 @@ async function marketingLoadMyVisits() {
                 "<td>" + appEscapeHtml(v.travel_name) + "</td>" +
                 "<td>" + v.vehicle_count + "</td>" +
                 "<td>" + appRenderStatusBadge(v.status) + "</td>" +
+                "<td>" + (v.sticker_number ? appEscapeHtml(v.sticker_number) : "-") + "</td>" +
                 "<td>" + appFormatRupiah(v.total_spend) + "</td>" +
                 "<td>" + appFormatRupiah(v.fee_amount) + "</td>" +
                 "</tr>";
@@ -113,9 +118,9 @@ async function marketingLoadMyVisits() {
 
         tableSlot.innerHTML =
             '<div class="table-wrap"><table class="data-table"><thead><tr>' +
-            "<th>Tanggal</th><th>Rombongan</th><th>Travel</th><th>Bus</th><th>Status</th><th>Belanja</th><th>Fee</th>" +
+            "<th>Tanggal</th><th>Rombongan</th><th>Travel</th><th>Bus</th><th>Status</th><th>No Stiker</th><th>Belanja</th><th>Fee</th>" +
             "</tr></thead><tbody>" +
-            (rows || '<tr><td colspan="7" class="table-empty">Belum ada rombongan bulan ini.</td></tr>') +
+            (rows || '<tr><td colspan="8" class="table-empty">Belum ada rombongan bulan ini.</td></tr>') +
             "</tbody></table></div>";
     } catch (error) {
         tableSlot.innerHTML = '<div class="alert alert-error">' + appEscapeHtml(error.message) + "</div>";
